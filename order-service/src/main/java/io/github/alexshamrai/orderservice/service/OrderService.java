@@ -21,7 +21,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    
     private final OrderRepository orderRepository;
     private final BookClient bookClient;
 
@@ -58,7 +57,6 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
-
     
     public List<Order> getUserOrders(Long userId) {
         return orderRepository.findByUserId(userId);
@@ -117,5 +115,4 @@ public class OrderService {
     private void updateBookStock(BookDto book, int quantity) {
         bookClient.updateStock(book.getId(), book.getStockQuantity() - quantity);
     }
-
 }
