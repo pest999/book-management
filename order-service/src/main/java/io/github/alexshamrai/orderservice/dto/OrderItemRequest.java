@@ -7,4 +7,3 @@ public class OrderItemRequest {
     private Long bookId;
     private Integer quantity;
 }
-
