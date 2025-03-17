@@ -29,13 +29,9 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody CreateBookRequest request) {
-        Book book = new Book();
-        book.setTitle(request.getTitle());
-        book.setAuthor(request.getAuthor());
-        book.setPrice(request.getPrice());
-        book.setStockQuantity(request.getStockQuantity());
-        return ResponseEntity.ok(bookService.createBook(book));
+    public ResponseEntity<Book> createOrUpdateBook(@RequestBody CreateBookRequest request) {
+        Book book = bookService.createOrUpdateBook(request);
+        return ResponseEntity.ok(book);
     }
 
     @PutMapping("/{id}/stock")
