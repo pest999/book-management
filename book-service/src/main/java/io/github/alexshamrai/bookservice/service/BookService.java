@@ -1,5 +1,6 @@
 package io.github.alexshamrai.bookservice.service;
 
+import io.github.alexshamrai.bookservice.dto.CreateBookRequest;
 import io.github.alexshamrai.bookservice.model.Book;
 import io.github.alexshamrai.bookservice.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -46,5 +47,25 @@ public class BookService {
     @Transactional
     public void deleteAllBooks() {
         bookRepository.deleteAll();
+    }
+
+    public Book createOrUpdateBook(CreateBookRequest request) {
+
+        Optional<Book> existingBook = bookRepository.findByTitleAndAuthor(request.getTitle(), request.getAuthor());
+
+        if (existingBook.isPresent()) {
+
+            Book book = existingBook.get();
+            book.setPrice(request.getPrice());
+            book.setStockQuantity(request.getStockQuantity());
+            return bookRepository.save(book);
+        } else {
+            Book newBook = new Book();
+            newBook.setTitle(request.getTitle());
+            newBook.setAuthor(request.getAuthor());
+            newBook.setPrice(request.getPrice());
+            newBook.setStockQuantity(request.getStockQuantity());
+            return bookRepository.save(newBook);
+        }
     }
 }

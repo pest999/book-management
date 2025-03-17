@@ -2,18 +2,28 @@ spring:
   application:
     name: book-service
 
+  datasource:
+    url: jdbc:h2:mem:bookdb;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+
+  h2:
+    console:
+
+      enabled: true
+      path: /h2-console
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:/schema.sql
+      data-locations: classpath:/data.sql
+
 server:
   port: 9091
-
-datasource:
-  url: jdbc:h2:mem:bookdb
-  driverClassName: org.h2.Driver
-  username: sa
-  password:
-
-jpa:
-  database-platform: org.hibernate.dialect.H2Dialect
-
-h2:
-  console:
-    enabled: true

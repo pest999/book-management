@@ -41,24 +41,16 @@ public class OrderService {
                 throw new EntityNotFoundException("Book not found: " + itemRequest.getBookId());
             }
 
-            BookDto book = bookResponse.getBody();
-            if (book.getStockQuantity() < itemRequest.getQuantity()) {
-                throw new InsufficientStockException("Insufficient stock for book: " + book.getTitle());
-            }
-
+            BookDto book = getBookFromClient(itemRequest.getBookId());
+            validateStock(book, itemRequest.getQuantity());
             // Create order item
-            OrderItem orderItem = new OrderItem();
-            orderItem.setBookId(book.getId());
-            orderItem.setQuantity(itemRequest.getQuantity());
-            orderItem.setPrice(book.getPrice());
-            orderItem.setOrder(order);
+            var orderItem = createOrderItem(book, itemRequest, order);
             orderItems.add(orderItem);
 
             totalAmount += book.getPrice() * itemRequest.getQuantity();
 
             // Update book stock
-            bookClient.updateStock(book.getId(),
-                book.getStockQuantity() - itemRequest.getQuantity());
+            updateBookStock(book, itemRequest.getQuantity());
         }
 
         order.setOrderItems(orderItems);
@@ -97,6 +89,33 @@ public class OrderService {
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll(); // Returns a list of all orders
+    }
+
+    private BookDto getBookFromClient(Long bookId) {
+        return bookClient.getBook(bookId)
+                .getBody();
+    }
+
+    private void validateStock(BookDto book, int quantity) {
+        if (book == null) {
+            throw new EntityNotFoundException("Book not found");
+        }
+        if (book.getStockQuantity() < quantity) {
+            throw new InsufficientStockException("Insufficient stock for book: " + book.getTitle());
+        }
+    }
+
+    private OrderItem createOrderItem(BookDto book, OrderItemRequest itemRequest, Order order) {
+        var orderItem = new OrderItem();
+        orderItem.setBookId(book.getId());
+        orderItem.setQuantity(itemRequest.getQuantity());
+        orderItem.setPrice(book.getPrice());
+        orderItem.setOrder(order);
+        return orderItem;
+    }
+
+    private void updateBookStock(BookDto book, int quantity) {
+        bookClient.updateStock(book.getId(), book.getStockQuantity() - quantity);
     }
 
 }
