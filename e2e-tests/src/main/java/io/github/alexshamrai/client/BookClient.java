@@ -1,8 +1,8 @@
 package io.github.alexshamrai.client;
 
-import io.github.alexshamrai.dto.BookDto;
+import io.github.alexshamrai.ApiPaths;
+import io.github.alexshamrai.dto.response.BookDto;
 import io.restassured.response.Response;
-import java.util.List;
 
 public class BookClient extends BaseClient {
 
@@ -13,32 +13,35 @@ public class BookClient extends BaseClient {
     public Response createBook(BookDto request) {
         return baseClient()
             .body(request)
-            .post("/api/books");
+            .post();
     }
 
     public Response getBook(Long id) {
+        String url = String.format(ApiPaths.BOOK_BY_ID, id);
         return baseClient()
-            .get("/api/books/" + id);
+            .get(url);
     }
 
     public Response getAllBooks() {
         return baseClient()
-            .get("/api/books");
+            .get();
     }
 
     public Response updateStock(Long id, Integer quantity) {
+        String url = String.format(ApiPaths.BOOK_STOCK, id);
         return baseClient()
             .queryParam("quantity", quantity)
-            .put("/api/books/" + id + "/stock");
+            .put(url);
     }
 
     public Response deleteBook(Long id) {
+        String url = String.format(ApiPaths.BOOK_BY_ID, id);
         return baseClient()
-            .delete("/api/books/" + id);
+            .delete(url);
     }
 
     public Response deleteAllBooks() {
         return baseClient()
-            .delete("/api/books");
+            .delete();
     }
 }

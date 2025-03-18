@@ -28,6 +28,9 @@
         <rest-assured.version>5.4.0</rest-assured.version>
         <feign.version>4.2.0</feign.version>
         <assertj.version>3.27.3</assertj.version>
+        <extentreports.version>5.1.1</extentreports.version>
+        <log4j.version>1.2.17</log4j.version>
+        <dotenv.version>2.2.0</dotenv.version>
     </properties>
 
     <modules>
@@ -70,6 +73,21 @@
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
                 <version>${assertj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aventstack</groupId>
+                <artifactId>extentreports</artifactId>
+                <version>${extentreports.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.cdimascio</groupId>
+                <artifactId>dotenv-java</artifactId>
+                <version>${dotenv.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

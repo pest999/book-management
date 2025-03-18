@@ -1,4 +1,4 @@
-package io.github.alexshamrai.dto;
+package io.github.alexshamrai.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class BookDto {
-
     private Long id;
     private String title;
     private String author;
