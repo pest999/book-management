@@ -1,4 +1,4 @@
-package io.github.alexshamrai.dto;
+package io.github.alexshamrai.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -17,4 +17,3 @@ public class OrderItemDto {
     private Integer quantity;
     private Double price;
 }
-

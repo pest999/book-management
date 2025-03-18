@@ -1,4 +1,4 @@
-package io.github.alexshamrai.dto;
+package io.github.alexshamrai.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,4 +14,3 @@ public class OrderRequest {
     private Long userId;
     private List<OrderItemRequest> items;
 }
-

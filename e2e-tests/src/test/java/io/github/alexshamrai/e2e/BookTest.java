@@ -1,7 +1,7 @@
 package io.github.alexshamrai.e2e;
 
 import io.github.alexshamrai.client.BookClient;
-import io.github.alexshamrai.dto.BookDto;
+import io.github.alexshamrai.dto.response.BookDto;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static io.github.alexshamrai.e2e.BaseTest.BOOK_SERVICE_URL;
+import static io.github.alexshamrai.e2e.testData.CommonTestData.BOOK_SERVICE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BookTest {
